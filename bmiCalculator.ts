@@ -1,4 +1,52 @@
 //Määrittelee case:n jota lasketaan
+//type Operation = 'bmi';
+interface BmiValues {
+    heigth: number,
+    mass: number
+}
+//Määrittelee tulostuksen tyypin
+type Result = string;
+
+//process.argv parseri
+const parseArgumentsit = (args: Array<string>): BmiValues => {
+    console.log('argsArrayToNumbers', args)
+    //Argument arraysta otetaan indeksit 2 ja kolme, koska indekseissä
+    //0 ja 1 on tauhkaa
+    let parsedValues = {
+        heigth: Number(args[2]),
+        mass: Number(args[3])
+    }
+    return parsedValues
+}
+
+
+//Laskentatapahtuma ja mitä tulostetaan sekä virheen käsittely
+const calculateBmi = (heigth: number, mass: number) => {
+    if (heigth === 0) throw new Error('Can\'t divide by 0!');
+    const heigthInMeters = heigth / 100;
+    console.log('heigthInMeters', heigthInMeters)
+    const bmi = mass / (heigthInMeters * heigthInMeters);
+    console.log('bmi', bmi)
+    if (bmi < 24) {
+        return 'Normal (healthy weight)';
+    } else {
+        return 'Overweigth';
+    }
+}
+
+
+try {
+    const { heigth, mass } = parseArgumentsit(process.argv);
+    console.log(calculateBmi(heigth, mass))
+} catch (e) {
+    console.log('Something went wrong, error message: ', e.message);
+}
+
+
+
+
+/*
+//Määrittelee case:n jota lasketaan
 type Operation = 'bmi';
 //Määrittelee tulostuksen tyypin
 type Result = string;
@@ -25,38 +73,7 @@ try {
 } catch (e) {
     console.log('Something went wrong, error message: ', e.message);
 }
-
-
-
-
-/*
-interface bmiValues {
-    heigth: number;
-    weigth: number;
-}
-
-const parseArguments = (args: Array<string>): bmiValues => {
-    if (args.length < 4) throw new Error('Not enough arguments');
-    if (args.length > 4) throw new Error('Too many arguments');
-
-    if (!isNaN(Number(args[2])) && !isNaN(Number(args[3]))) {
-        return {
-            heigth: Number(args[2]),
-            weigth: Number(args[3])
-        }
-    } else {
-        throw new Error('Provided values were not numbers!');
-    }
-}
-
-const multiplicator = (heigth: number, weigth: number, printText: string) => {
-    console.log(printText, weigth / (heigth * heigth));
-}
-
-try {
-    const { heigth, weigth } = parseArguments(process.argv);
-    multiplicator(heigth, weigth, `Multiplied ${heigth} and ${weigth}, the result is:`);
-} catch (e) {
-    console.log('Error, something bad happened, message: ', e.message);
-}
 */
+
+
+
