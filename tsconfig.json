@@ -4,6 +4,16 @@
 //that makes it mandatory to have types for all variables used.¨
 {
     "compilerOptions": {
-      "noImplicitAny": true,
+        "noImplicitAny": true,
+        "noImplicitReturns": true,
+        "strictNullChecks": true,
+        "strictPropertyInitialization": true,
+        "strictBindCallApply": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noImplicitThis": true,
+        "alwaysStrict": true,
+        "esModuleInterop": true,
+        "declaration": true,
     }
-  }
+}
