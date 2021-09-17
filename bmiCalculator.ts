@@ -1,11 +1,12 @@
 
 
-
+import { Request, Response } from 'express';
 //Exportataan interface muiden moduulien käyttöön
 //Ks. alla myös "calculateBmi" funktion export
 export interface BmiValues {
     heigth: number,
-    mass: number
+    mass: number,
+    bmi: string
 }
 //Määrittelee tulostuksen tyypin
 //type Result = string;
@@ -24,16 +25,36 @@ export const parseArgumentsit = (args: Array<string>): BmiValues => {
 */
 
 //Laskentatapahtuma ja mitä tulostetaan sekä virheen käsittely
-export const calculateBmi = (heigth: number, mass: number) => {
-    if (heigth === 0) throw new Error('Can\'t divide by 0!');
-    const heigthInMeters = heigth / 100;
+//request ja response tulee expressin välityksellä selaimesta
+export const calculateBmi = (request: Request, response: Response) => {
+
+    //Poimitaan url:sta pituus ja paino
+    //esim. http://localhost:3003/bmi?height=190&weight=91
+    const height = Number(request.query.height);
+    const weight = Number(request.query.weight);
+
+    if (height === 0) throw new Error('Can\'t divide by 0!');
+    const heigthInMeters = height / 100;
     console.log('heigthInMeters', heigthInMeters)
-    const bmi = mass / (heigthInMeters * heigthInMeters);
+    const bmi = weight / (heigthInMeters * heigthInMeters);
     console.log('bmi', bmi)
+
+    //Bmi arvoihin perustuvat tulostukset
     if (bmi < 24) {
-        return 'Normal (healthy weight)';
+        const bmiResult = {
+            heigth: height,
+            mass: weight,
+            bmi: 'Normal (healthy weight)'
+        }
+        //Palautetaan status ja json -muotoinen data selaimelle
+        return response.status(200).json(bmiResult);
     } else {
-        return 'Overweigth';
+        const bmiResult = {
+            heigth: height,
+            mass: weight,
+            bmi: 'Overweigth'
+        }
+        return response.status(200).json(bmiResult);
     }
 }
 

@@ -1,30 +1,16 @@
 
 //import express, { Request, Response, NextFunction } from 'express';
-import express, { Request, Response } from 'express';
+import express from 'express';
+//Importataan interface käyttöön
 import BmiValues from './bmiCalculator'
-
+//Middleware käytettäväksi välittämään HTTP -viestejä
+//clientin ja palvelimen välillä
 const app = express();
 
-//Lasketaan bmi, hyödyntäen "bmiCalculator.ts" -moduulin funktiota
-const calculeeraaBmii = (request: Request, response: Response) => {
-    //Otetaan paino ja pituus URL:sta vastaan ja muutetaan integer tyyppisiksi
-    const height = Number(request.query.height);
-    const weight = Number(request.query.weight);
 
-    //Pyydetään "bmiCalculator.ts" -moduulia/fileä laskemaan "bmi"
-    const bmiResult = BmiValues.calculateBmi(height, weight);
-
-    //Luodaan palautettava olio
-    const result = {
-        height: height,
-        weight: weight,
-        bmi: bmiResult
-    }
-    //Vastaus "jsonina"
-    response.status(200).json(result);
-}
-//Tehdään get -tyyppinen pyyntö funktiolle "calculeeraaBmii"
-app.get('/bmi?', calculeeraaBmii);
+//Tehdään get -tyyppinen pyyntö funktiolle "calculateBmi",
+//Joka on filessä "bmiCalculatro.ts"
+app.get('/bmi?', BmiValues.calculateBmi);
 
 //Kerrotaan portti jota sovellus kuuntelee
 const port = 3003;
