@@ -1,14 +1,17 @@
-//Määrittelee case:n jota lasketaan
-//type Operation = 'bmi';
-interface BmiValues {
+
+
+
+//Exportataan interface muiden moduulien käyttöön
+//Ks. alla myös "calculateBmi" funktion export
+export interface BmiValues {
     heigth: number,
     mass: number
 }
 //Määrittelee tulostuksen tyypin
-type Result = string;
-
-//process.argv parseri
-const parseArgumentsit = (args: Array<string>): BmiValues => {
+//type Result = string;
+/*
+//process.argv parseri 
+export const parseArgumentsit = (args: Array<string>): BmiValues => {
     console.log('argsArrayToNumbers', args)
     //Argument arraysta otetaan indeksit 2 ja kolme, koska indekseissä
     //0 ja 1 on tauhkaa
@@ -18,10 +21,10 @@ const parseArgumentsit = (args: Array<string>): BmiValues => {
     }
     return parsedValues
 }
-
+*/
 
 //Laskentatapahtuma ja mitä tulostetaan sekä virheen käsittely
-const calculateBmi = (heigth: number, mass: number) => {
+export const calculateBmi = (heigth: number, mass: number) => {
     if (heigth === 0) throw new Error('Can\'t divide by 0!');
     const heigthInMeters = heigth / 100;
     console.log('heigthInMeters', heigthInMeters)
@@ -34,15 +37,17 @@ const calculateBmi = (heigth: number, mass: number) => {
     }
 }
 
-
+/*
 try {
     const { heigth, mass } = parseArgumentsit(process.argv);
     console.log(calculateBmi(heigth, mass))
 } catch (e) {
     console.log('Something went wrong, error message: ', e.message);
 }
-
-
+*/
+export default {
+    calculateBmi
+}
 
 
 /*
