@@ -3,9 +3,21 @@ import express from 'express';
 //import express from 'express';
 //Importataan interface käyttöön
 import BmiValues from './bmiCalculator';
+import ExerciseResult from './exerciseCalculator'
 //Middleware käytettäväksi välittämään HTTP -viestejä
 //clientin ja palvelimen välillä
 const app = express();
+//Aktivoidaan expressin json -parseri ja sen avulla
+//Funktioilla jne. on accessi "request" -olion "body" propertyyn 
+app.use(express.json())
+
+app.post('/excersiseCalculator', (request, response) => {
+    const inputData = request.body
+    console.log('inputData', inputData)
+    console.log('inputDataJaExerciseProperty', inputData.daily_exercises)
+    const excerciseResult=ExerciseResult.calculateExercises(request)
+    response.json(excerciseResult)
+})
 
 
 //Tehdään get -tyyppinen pyyntö funktiolle "calculateBmi",
