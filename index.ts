@@ -2,7 +2,7 @@
 import express from 'express';
 //import express from 'express';
 //Importataan interface käyttöön
-import BmiValues from './bmiCalculator'
+import BmiValues from './bmiCalculator';
 //Middleware käytettäväksi välittämään HTTP -viestejä
 //clientin ja palvelimen välillä
 const app = express();
@@ -13,7 +13,7 @@ const app = express();
 app.get('/bmi?', (req, res) => {
     //Lähetetään request ja response
     const bmiResult = BmiValues.calculateBmi(req);
-    res.send(bmiResult)
+    res.send(bmiResult);
 
 });
 
@@ -22,6 +22,8 @@ const port = 3003;
 app.listen(port, () => {
     console.log(`Server is running on port ${port}.`);
 });
+
+
 //app.get('/bmi?', getLocationsWithTimezones)
 /*
 //JOTTA EXPRESS TOIMII:

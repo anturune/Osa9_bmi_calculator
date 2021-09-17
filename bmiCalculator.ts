@@ -35,9 +35,9 @@ export const calculateBmi = (request: Request) => {
 
     if (height === 0) throw new Error('Can\'t divide by 0!');
     const heigthInMeters = height / 100;
-    console.log('heigthInMeters', heigthInMeters)
+    console.log('heigthInMeters', heigthInMeters);
     const bmi = weight / (heigthInMeters * heigthInMeters);
-    console.log('bmi', bmi)
+    console.log('bmi', bmi);
 
     //Bmi arvoihin perustuvat tulostukset
     if (bmi < 24) {
@@ -45,7 +45,7 @@ export const calculateBmi = (request: Request) => {
             heigth: height,
             mass: weight,
             bmi: 'Normal (healthy weight)'
-        }
+        };
         //Palautetaan status ja json -muotoinen data selaimelle
         return bmiResult;
     } else {
@@ -53,10 +53,10 @@ export const calculateBmi = (request: Request) => {
             heigth: height,
             mass: weight,
             bmi: 'Overweigth'
-        }
+        };
         return bmiResult;
     }
-}
+};
 
 /*
 try {
@@ -68,7 +68,7 @@ try {
 */
 export default {
     calculateBmi
-}
+};
 
 
 /*
