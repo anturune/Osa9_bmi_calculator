@@ -1,6 +1,6 @@
 
 
-import { Request, Response } from 'express';
+import { Request } from 'express';
 //Exportataan interface muiden moduulien käyttöön
 //Ks. alla myös "calculateBmi" funktion export
 export interface BmiValues {
@@ -26,7 +26,7 @@ export const parseArgumentsit = (args: Array<string>): BmiValues => {
 
 //Laskentatapahtuma ja mitä tulostetaan sekä virheen käsittely
 //request ja response tulee expressin välityksellä selaimesta
-export const calculateBmi = (request: Request, response: Response) => {
+export const calculateBmi = (request: Request) => {
 
     //Poimitaan url:sta pituus ja paino
     //esim. http://localhost:3003/bmi?height=190&weight=91
@@ -47,14 +47,14 @@ export const calculateBmi = (request: Request, response: Response) => {
             bmi: 'Normal (healthy weight)'
         }
         //Palautetaan status ja json -muotoinen data selaimelle
-        return response.status(200).json(bmiResult);
+        return bmiResult;
     } else {
         const bmiResult = {
             heigth: height,
             mass: weight,
             bmi: 'Overweigth'
         }
-        return response.status(200).json(bmiResult);
+        return bmiResult;
     }
 }
 

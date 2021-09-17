@@ -1,6 +1,6 @@
 
-//import express, { Request, Response, NextFunction } from 'express';
 import express from 'express';
+//import express from 'express';
 //Importataan interface käyttöön
 import BmiValues from './bmiCalculator'
 //Middleware käytettäväksi välittämään HTTP -viestejä
@@ -10,7 +10,12 @@ const app = express();
 
 //Tehdään get -tyyppinen pyyntö funktiolle "calculateBmi",
 //Joka on filessä "bmiCalculatro.ts"
-app.get('/bmi?', BmiValues.calculateBmi);
+app.get('/bmi?', (req, res) => {
+    //Lähetetään request ja response
+    const bmiResult = BmiValues.calculateBmi(req);
+    res.send(bmiResult)
+
+});
 
 //Kerrotaan portti jota sovellus kuuntelee
 const port = 3003;
